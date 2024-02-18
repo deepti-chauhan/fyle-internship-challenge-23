@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { SearchBarComponent } from './search-bar/search-bar.component';
-import { ProfileComponent } from './profile/profile.component';
+import { SearchBarComponent } from './components/search-bar/search-bar.component';
+import { ProfileComponent } from './screens/profile/profile.component';
+import { HomepageComponent } from './screens/homepage/homepage.component';
 
 const routes: Routes = [
-  { path: '', component: SearchBarComponent },
-  { path: 'users/:githubUsername', component: ProfileComponent },
+  { path: '', component: HomepageComponent },
+  { path: 'users/:query', component: ProfileComponent },
 ];
 
 @NgModule({

@@ -1,5 +1,16 @@
 # Fyle Frontend Challenge
 
+# Todos : 
+
+    -   pagination
+    -   repos dropdown
+    -   UI
+    -   search functionality on profile page aswell
+    -   skeleton loading
+    -   standard loading
+    -   code refactoring
+    -   responsive
+
 ## Who is this for?
 
 This challenge is meant for candidates who wish to intern at Fyle and work with our engineering team. The candidate should be able to commit to at least 6 months of dedicated time for internship.

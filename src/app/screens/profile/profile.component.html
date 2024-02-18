@@ -1,0 +1,117 @@
+<!-- @TO-DO -->
+<div class="mt-5 mb-5">
+  <app-search-bar (searchEvent)="onSearch($event)"></app-search-bar>
+</div>
+
+<div *ngIf="isLoading" class="flex justify-center items-center w-auto h-auto">
+  <ngx-skeleton-loader
+    count="1"
+    appearance="circle"
+    [theme]="{
+      'width.px': 200,
+      'height.px': 200
+    }"
+  />
+  <ngx-skeleton-loader count="5" appearance="line" class="w-80 h-2" />
+</div>
+
+<div *ngIf="isError">
+  <p>User not found</p>
+</div>
+
+<div
+  *ngIf="!isLoading && !isError"
+  class="w-full h-full p-10 border-slate rounded-md shadow-lg border-2 grid grid-cols-4 gap-2"
+>
+  <div class="col-span-1">
+    <img
+      src="{{ user.avatar_url }}"
+      width="200px"
+      height="200px"
+      class="m-4 shadow-sm shadow-black"
+      style="border-radius: 100px"
+    />
+    <div class="mb-2 p-3">
+      <h1>{{ user.name }}</h1>
+      <h2>{{ username }}</h2>
+      <p>
+        <span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-4 h-4"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z"
+            />
+          </svg>
+        </span>
+        {{ user.followers }}Followers
+      </p>
+      <p>Followers : {{ user.following }}</p>
+      <p>{{ user.location }}</p>
+      <div class="items-center bg-green-500 p-1 flex justify-center rounded-md">
+        <span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="w-4 h-4 mr-1"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244"
+            />
+          </svg>
+        </span>
+        <a href="{{ user.html_url }}" class="button text-" target="_blank"
+          >Visit Profile</a
+        >
+      </div>
+    </div>
+  </div>
+  <div class="border-black border-2 col-span-3">
+    <div class="flex justify-between p-2">
+      <app-dropdown
+        (dropDownEvent)="onDropdownValueChange($event)"
+      ></app-dropdown>
+      <pagination-controls
+        previousLabel="Prev"
+        nextLabel="Next"
+        (pageChange)="onTableDataChange($event)"
+      >
+      </pagination-controls>
+    </div>
+    <div class="grid grid-cols-1 gap-2 w-full p-10">
+      <div
+        *ngFor="
+          let repo of repos
+            | paginate
+              : {
+                  itemsPerPage: perPage,
+                  currentPage: page,
+                  totalItems: totalItems
+                };
+          let i = index
+        "
+        class="p-2 border-black border-2"
+      >
+        <p class="text-blue-500">{{ repo.name }}</p>
+        <p class="">{{ repo.description }}</p>
+        <p>fork {{ repo.forks_count }}</p>
+        <p *ngFor="let topic of repo.topics">
+          <span class="border-2 border-black m-1">{{ topic }}</span>
+        </p>
+        <p>Updated {{ convertTimestampToWeeks(repo.updated_at) }} weeks ago</p>
+      </div>
+    </div>
+  </div>
+</div>

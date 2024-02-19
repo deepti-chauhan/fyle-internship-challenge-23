@@ -1,39 +1,28 @@
 # Fyle Frontend Challenge
 
-# Todos : 
+## 🔍GitHub Finder
 
-    -   pagination
-    -   repos dropdown
-    -   UI
-    -   search functionality on profile page aswell
-    -   skeleton loading
-    -   standard loading
-    -   code refactoring
-    -   responsive
+Its a web application that allows users to search for GitHub users and view their profiles and repositories.
+
+## Key features of a GitHub Finder
+
+- 🔍 `User Search` : Users can search for GitHub users by username.
+- 👥 `User Profile` : Once a user is found, their profile information is displayed, including their avatar, username, bio, location, number of followers, number of repositories, etc.
+- ↔ `Pagination` : If there are many repositories, pagination may be implemented to navigate through multiple pages of results.
+- ❌`Error Handling` : Proper error handling is essential, including displaying friendly messages for errors such as user not found or API rate limiting.
+- 📥`Caching` : By caching the retrieved data locally, subsequent requests for the same data can be served from the cache instead of making redundant API calls
+- ⏳`loading` : skeleton loading effect helps in providing a better user experience when making API calls in web applications. 
+
+## Tech & Tools
+
+-   Angular JS
+-   TailWind CSS
+-   [GitHub API](https://api.github.com/) ↗
+
 
 ## Who is this for?
 
 This challenge is meant for candidates who wish to intern at Fyle and work with our engineering team. The candidate should be able to commit to at least 6 months of dedicated time for internship.
-
-## Why work at Fyle?
-
-Fyle is a fast-growing Expense Management SaaS product. We are ~40 strong engineering team at the moment. 
-
-We are an extremely transparent organization. Check out our [careers page](https://careers.fylehq.com) that will give you a glimpse of what it is like to work at Fyle. Also, check out our Glassdoor reviews [here](https://www.glassdoor.co.in/Reviews/Fyle-Reviews-E1723235.htm). You can read stories from our teammates [here](https://stories.fylehq.com).
-
-## Challenge outline
-
-This challenge involves implementing application using github api. 
-
-The services that you need to use are already implemented - check out ApiService.
-
-You can see details of this challenge [here](https://fyleuniverse.notion.site/fyleuniverse/Fyle-Frontend-development-challenge-cb5085e5e0864e769e7b98c694400aaa)
-
-__Note__ - This challenge is in angular. We work on angular frameworks & after you join we expect the same from you. Hence it is required to complete this assignement in angular itself.
-
-## What happens next?
-
-You will hear back within 48 hours from us via email.
 
 ## Installation
 
@@ -41,12 +30,20 @@ You will hear back within 48 hours from us via email.
 2. Clone the forked repository and proceed with steps mentioned below.
 
 ### Install requirements
-* Install angular cli [Ref](https://angular.io/cli)
-* `npm install` in this repository 
+
+- Install angular cli [Ref](https://angular.io/cli)
+- `npm install` in this repository
 
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.
+
+## Testing 
+
+Execute unit tests to ensure the correctness of individual components and services.
+
+Run `ng test` to start the Karma test runner and run all unit tests.
+Review the test results displayed in the terminal or command prompt.
 
 ## Further help
 

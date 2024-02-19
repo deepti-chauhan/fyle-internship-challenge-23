@@ -84,7 +84,10 @@
   <div class="col-span-3">
     <!-- DROPDOWN COMPONENT -->
     <div class="flex justify-between p-2 ml-6 mr-7">
-      <app-dropdown (dropDownEvent)="onDropdownValueChange($event)" />
+      <app-dropdown
+        [value]="perPage"
+        (dropDownEvent)="onDropdownValueChange($event)"
+      />
     </div>
     <!-- DROPDOWN COMPONENT END-->
     <!-- REPOS -->

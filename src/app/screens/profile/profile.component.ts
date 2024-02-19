@@ -32,6 +32,7 @@ export class ProfileComponent implements OnInit {
       this.getCurrentUser(this.username);
       this.getCurrentUserRepos(this.username, this.page, this.perPage);
     });
+
   }
 
   getCurrentUser(username: string): void {
@@ -76,10 +77,13 @@ export class ProfileComponent implements OnInit {
     }
 
     this.page = 1;
+    this.perPage = 10;
   }
 
   onDropdownValueChange(value: number) {
     this.perPage = value;
+    console.log('change value of DD', value);
+
     this.getCurrentUserRepos(this.username, this.page, this.perPage);
   }
 

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from '../../services/api.service';
 import { DatePipe } from '@angular/common';
+import { Observer } from 'rxjs';
 
 @Component({
   selector: 'app-profile',
@@ -28,7 +29,6 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       this.username = params['query'];
-      console.log('params --', params);
       this.getCurrentUser(this.username);
       this.getCurrentUserRepos(this.username, this.page, this.perPage);
     });
@@ -36,36 +36,36 @@ export class ProfileComponent implements OnInit {
 
   getCurrentUser(username: string): void {
     this.isLoading = true;
-    this.apiService.getUser(username).subscribe(
-      (data) => {
+    this.apiService.getUser(username).subscribe({
+      next: (data) => {
         this.user = data;
         this.totalItems = this.user.public_repos;
         this.isLoading = false;
         this.isError = false;
       },
-      (error) => {
+      error: (error) => {
         this.isError = true;
         this.isLoading = false;
         console.log('user not found');
-      }
-    );
+      },
+    });
   }
 
   getCurrentUserRepos(username: string, page: number, perPage: number): void {
     this.isLoading = true;
-    this.apiService.getRepos(username, page, perPage).subscribe(
-      (data) => {
+    this.apiService.getRepos(username, page, perPage).subscribe({
+      next: (data) => {
         this.repos = data;
         this.totalPages = Math.ceil(this.totalItems / perPage);
         this.isLoading = false;
         this.isError = false;
       },
-      (error) => {
+      error: (error) => {
         this.isLoading = false;
         this.isError = true;
         console.log('repos not found');
-      }
-    );
+      },
+    });
   }
 
   onSearch(query: string) {
@@ -76,42 +76,17 @@ export class ProfileComponent implements OnInit {
     }
 
     this.page = 1;
-    // this.perPage = 10;
-
-    // this.getCurrentUser(query);
-    // this.getCurrentUserRepos(query, this.page, this.perPage);
   }
 
   onDropdownValueChange(value: number) {
     this.perPage = value;
-    // this.totalPages = Math.ceil(this.totalItems / value); // Calculate total pages
     this.getCurrentUserRepos(this.username, this.page, this.perPage);
   }
-
-  // nextPage() {
-  //   if (this.page < this.totalPages) {
-  //     this.page += 1;
-  //     this.getCurrentUserRepos(this.username, this.page, this.perPage);
-  //   }
-  // }
-
-  // prevPage() {
-  //   if (this.page > 1) {
-  //     this.page += 1;
-  //     this.getCurrentUserRepos(this.username, this.page, this.perPage);
-  //   }
-  // }
 
   onTableDataChange(event: any) {
     this.page = event;
     this.getCurrentUserRepos(this.username, this.page, this.perPage);
   }
-
-  // onTableSizeChange(event: any): void {
-  //   // this.tableSize = event.target.value;
-  //   this.page = 1;
-  //   this.getCurrentUserRepos(this.username, this.page, this.perPage);
-  // }
 
   convertTimestampToWeeks(timestamp: string): number {
     const date = new Date(timestamp);

@@ -12,6 +12,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { PaginationComponent } from './components/pagination/pagination.component';
 import { HomepageComponent } from './screens/homepage/homepage.component';
 import { DropdownComponent } from './components/dropdown/dropdown.component';
+import { UsernotfoundComponent } from './components/usernotfound/usernotfound.component';
+import { FollowersComponent } from './svg-component/followers/followers.component';
+import { LocationComponent } from './svg-component/location/location.component';
+import { SearchComponent } from './svg-component/search/search.component';
+import { ArrowupComponent } from './svg-component/arrowup/arrowup.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +26,11 @@ import { DropdownComponent } from './components/dropdown/dropdown.component';
     PaginationComponent,
     HomepageComponent,
     DropdownComponent,
+    UsernotfoundComponent,
+    FollowersComponent,
+    LocationComponent,
+    SearchComponent,
+    ArrowupComponent,
   ],
   imports: [
     BrowserModule,

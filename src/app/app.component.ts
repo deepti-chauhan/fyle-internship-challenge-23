@@ -8,11 +8,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  constructor(private apiService: ApiService, private router : Router) {}
+  title: string = 'fyle-frontend-challenge';
+
+  constructor(private apiService: ApiService, private router: Router) {}
 
   ngOnInit() {
-    this.apiService.getUser('johnpapa').subscribe(console.log);
+    // this.apiService.getUser('johnpapa').subscribe(console.log);
   }
-
- 
 }

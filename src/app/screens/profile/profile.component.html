@@ -1,28 +1,46 @@
-<!-- @TO-DO -->
-<div class="mt-5 mb-5">
+<!-- SEARCH COMPONENT -->
+<div class="w-500px mt-5 mb-5">
   <app-search-bar (searchEvent)="onSearch($event)"></app-search-bar>
 </div>
 
-<div *ngIf="isLoading" class="flex justify-center items-center w-auto h-auto">
-  <ngx-skeleton-loader
-    count="1"
-    appearance="circle"
-    [theme]="{
-      'width.px': 200,
-      'height.px': 200
-    }"
-  />
-  <ngx-skeleton-loader count="5" appearance="line" class="w-80 h-2" />
+<!-- LOADING COMPONENT -->
+<div
+  *ngIf="isLoading"
+  class="flex justify-center align-middle items-center w-full h-full border-2 border-slate rounded-md"
+>
+  <span class="w-96 p-5">
+    <ngx-skeleton-loader
+      count="1"
+      appearance="circle"
+      [theme]="{
+        'width.px': 200,
+        'height.px': 200
+      }"
+    />
+  </span>
+  <span class="w-96">
+    <ngx-skeleton-loader
+      count="5"
+      appearance="line"
+      [theme]="{
+        'width.px': 300,
+        'height.px': 30
+      }"
+    ></ngx-skeleton-loader>
+  </span>
 </div>
 
-<div *ngIf="isError">
-  <p>User not found</p>
+<!-- USER NOT FOUND COMPONENT -->
+<div *ngIf="!isLoading && isError">
+  <app-usernotfound></app-usernotfound>
 </div>
 
+<!-- USER FOUND COMPONENT -->
 <div
   *ngIf="!isLoading && !isError"
-  class="w-full h-full p-10 border-slate rounded-md shadow-lg border-2 grid grid-cols-4 gap-2"
+  class="w-full p-10 border-slate rounded-md shadow-lg border-2 grid grid-cols-4 gap-2"
 >
+  <!-- USER INFO  -->
   <div class="col-span-1">
     <img
       src="{{ user.avatar_url }}"
@@ -32,65 +50,45 @@
       style="border-radius: 100px"
     />
     <div class="mb-2 p-3">
-      <h1>{{ user.name }}</h1>
-      <h2>{{ username }}</h2>
-      <p>
-        <span>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            class="w-4 h-4"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z"
-            />
-          </svg>
-        </span>
-        {{ user.followers }}Followers
-      </p>
-      <p>Followers : {{ user.following }}</p>
-      <p>{{ user.location }}</p>
-      <div class="items-center bg-green-500 p-1 flex justify-center rounded-md">
-        <span>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            class="w-4 h-4 mr-1"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244"
-            />
-          </svg>
-        </span>
-        <a href="{{ user.html_url }}" class="button text-" target="_blank"
-          >Visit Profile</a
-        >
+      <h1 class="font-bold text-lg">{{ user.name }}</h1>
+      <h2 class="font-light text-sm mb-1">{{ username }}</h2>
+      <div class="flex items-center text-xs">
+        <app-followers />
+        <p class="mr-1">
+          <span class="font-semibold">{{ user.followers }}</span> followers
+        </p>
+
+        <p>
+          <span class="font-semibold">
+            {{ user.following }}
+          </span>
+          following
+        </p>
+      </div>
+      <div *ngIf="user.location" class="flex pt-1 pb-2 items-center">
+        <app-location />
+        <p class="text-xs">
+          {{ user.location }}
+        </p>
+      </div>
+      <div
+        class="items-center bg-green-500 p-1 flex justify-center rounded-md mt-2"
+      >
+        <a href="{{ user.html_url }}" class="button" target="_blank">Github</a>
+        <app-arrowup />
       </div>
     </div>
   </div>
-  <div class="border-black border-2 col-span-3">
-    <div class="flex justify-between p-2">
-      <app-dropdown
-        (dropDownEvent)="onDropdownValueChange($event)"
-      ></app-dropdown>
-      <pagination-controls
-        previousLabel="Prev"
-        nextLabel="Next"
-        (pageChange)="onTableDataChange($event)"
-      >
-      </pagination-controls>
+
+  <!-- REPO INFO -->
+  <div class="col-span-3">
+    <!-- DROPDOWN COMPONENT -->
+    <div class="flex justify-between p-2 ml-6 mr-7">
+      <app-dropdown (dropDownEvent)="onDropdownValueChange($event)" />
     </div>
-    <div class="grid grid-cols-1 gap-2 w-full p-10">
+    <!-- DROPDOWN COMPONENT END-->
+    <!-- REPOS -->
+    <div class="grid grid-cols-1 ml-8 gap-2 w-11/12">
       <div
         *ngFor="
           let repo of repos
@@ -102,16 +100,56 @@
                 };
           let i = index
         "
-        class="p-2 border-black border-2"
+        class="p-4 border-slate-200 border-t-2"
       >
-        <p class="text-blue-500">{{ repo.name }}</p>
-        <p class="">{{ repo.description }}</p>
-        <p>fork {{ repo.forks_count }}</p>
-        <p *ngFor="let topic of repo.topics">
-          <span class="border-2 border-black m-1">{{ topic }}</span>
+        <span
+          class="flex items-center text-blue-500 text-lg font-bold hover:underline"
+        >
+          <a href="{{ repo.html_url }}" target="_blank">
+            {{ repo.name }}
+          </a>
+          <app-arrowup />
+        </span>
+        <p class="w-96 text-xs mt-1 mb-1 font-light">
+          {{ repo.description }}
         </p>
-        <p>Updated {{ convertTimestampToWeeks(repo.updated_at) }} weeks ago</p>
+        <div class="w-96 flex flex-wrap">
+          <div
+            *ngFor="let topic of repo.topics.slice(0, 6)"
+            class="flex flex-col"
+          >
+            <span
+              class="bg-blue-500 bg-opacity-30 text-blue-600 font-semibold text-xs rounded-2xl pt-1 pb-1 pl-2 pr-2 m-1"
+              >{{ topic }}</span
+            >
+          </div>
+        </div>
+        <div class="flex flex-wrap text-xs mt-2">
+          <p *ngIf="repo.language" class="mr-3">{{ repo.language }}</p>
+          <p *ngIf="repo.forks_count !== 0" class="mr-3">
+            fork {{ repo.forks_count }}
+          </p>
+          <p>
+            Updated {{ convertTimestampToWeeks(repo.updated_at) }} weeks ago
+          </p>
+        </div>
       </div>
     </div>
+    <!-- REPOS END -->
+    <!-- PAGINATION COMPONENT START-->
+    <div class="flex justify-center m-7 border-t-2 p-4">
+      <pagination-controls
+        previousLabel="Prev"
+        nextLabel="Next"
+        (pageChange)="onTableDataChange($event)"
+      >
+      </pagination-controls>
+    </div>
+    <!-- PAGINATION COMPONENT END-->
   </div>
+</div>
+
+<!-- FOOTER -->
+<div class="mt-5 mb-5 text-center w-ful text-sm text-gray-600 bottom-0">
+  <p>made by deepti 2024</p>
 </div>

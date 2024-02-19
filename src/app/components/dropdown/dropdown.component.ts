@@ -6,7 +6,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./dropdown.component.scss'],
 })
 export class DropdownComponent {
-  // value : number = 10
+  value: number = 10;
   dropDownValues: number[] = [10, 25, 50, 70, 100];
 
   @Output() dropDownEvent = new EventEmitter<number>();

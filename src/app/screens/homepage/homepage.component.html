@@ -1,4 +1,7 @@
-<p>homepage works!</p>
-<div>
-  <app-search-bar (searchEvent)="onSearch($event)"></app-search-bar>
+<div class="mt-10 flex h-full justify-center items-center">
+  <div
+    class="mt-10 hover:transform hover:translate-x-2 hover:translate-y-2 transition-transform ease-in-out duration-300"
+  >
+    <app-search-bar (searchEvent)="onSearch($event)" />
+  </div>
 </div>

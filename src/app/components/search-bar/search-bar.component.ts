@@ -1,5 +1,4 @@
-import { Component, EventEmitter, HostListener, Output } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-search-bar',
